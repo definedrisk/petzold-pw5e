@@ -2,7 +2,11 @@
 
 Opened each 'Workspace' in VS2019 (16.6.5 at time of writing) and upgraded to 'Solution'. Summary of additional changes made before build.
 
-To help understand the changes made for this *revisited* code (as described by [README.MD](../README.MD) and the [Errata](../Errata/Programming%20Windows%2C%205th%20Edition%2C%20Errata%20Addendum%20-%20Jason%20Doucette.html)) open one instance of VS2019 using the CMakeLists.txt file and compare to a second instance of VS2019 with the appropriate solution opened from the CD-ROM sub-folder.
+To help understand the changes made for the *revisited* code at the top level of this repo (as described by the main [README.MD](../README.MD) and the [Errata](../Errata/Programming%20Windows%2C%205th%20Edition%2C%20Errata%20Addendum%20-%20Jason%20Doucette.html)) open one instance of VS2019 using the [CMakeLists.txt](../CMakeLists.txt) file and compare to a second instance of VS2019 with the appropriate solution opened from this CD-ROM sub-folder. These Visual Studio Solutions provide the minimum change to "get-it-working" from the CD-ROM directly in VS2019. By comparing the two versions of the code and reading the associated notes below, the scope of changes to bring it to the *revisited* standard can be seen.
+
+(The seperate [VS2019 New Projects](../VS2019%20New%20Projects) folder contains just a few projects created from scratch - see the folders associated [README.MD](../VS2019%20New%20Projects/README.MD) for details)
+
+The "Helpful web links" below are what I consider to be the up-to-date Microsoft references for the main points of relevance in each example (clearly over time these links may become invalid or change).
 
 ---
 
@@ -48,5 +52,44 @@ Use of the formatted output functions with *security enhancements* e.g. [_vsntpr
 1. [Docs > Visual Studio > IDE > Debugging > How-to guides > Application types > C/C++ code > CRT debugging > Macros for reporting](https://docs.microsoft.com/en-us/visualstudio/debugger/macros-for-reporting?view=vs-2019)
 
 ## Chap03
+
+### Hellowin
+
+  1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
+  1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
+
+### Comments
+
+*RegisterClassEx* function and *WNDCLASSEX* structure are now used giving some extra functionality. The *GetLastError* function is used establish a reason for failure if *RegisterClass* return value is zero.
+
+> All window classes that an application registers are unregistered when it terminates.
+>
+>No window classes registered by a DLL are unregistered when the DLL is unloaded. A DLL must explicitly unregister its classes when it is unloaded.
+
+The return value `HWND` of *CreateWindow* should be checked for `NULL` in which case use *GetLastError* for extended information.
+
+`WM_QUIT` causes *GetMessage* to return zero, otherwise it is always nonzero.
+
+*GetMessage* can return -1 so it should be checked using an if-else construct:
+
+    while ( (bRet = GetMessage( &msg, NULL, 0, 0 )) != 0)
+    {
+      if (bRet == -1)
+      {
+        // handle the error and possibly exit
+      }
+      else
+      {
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+      }
+    }
+
+### Helpful web links
+
+1. [Windows > Apps > Win32 > API > Windows and Messages > Winuser.h > WNDCLASSEX structure](https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-wndclassexa)
+1. [Windows > Apps > Win32 > API > Windows and Messages > Winuser.h > RegisterClassEx function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-registerclassexa)
+1. [Windows > Apps > Win32 > API > Windows and Messages > Winuser.h > CreateWindowEx function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-createwindowexa)
+1. [Windows > Apps > Win32 > API > Windows and Messages > Winuser.h > GetMessage function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getmessage)
 
 ... work in progress ...

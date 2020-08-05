@@ -60,7 +60,7 @@ Use of the formatted output functions with *security enhancements* e.g. [_vsntpr
 
 ### Comments
 
-*RegisterClassEx* function and *WNDCLASSEX* structure are now used giving some extra functionality. The *GetLastError* function is used establish a reason for failure if *RegisterClass* return value is zero.
+*RegisterClassEx* function and *WNDCLASSEX* structure are now used giving some extra functionality. The *GetLastError* function is used establish a reason for failure if *RegisterClass* return value is zero. Note that:
 
 > All window classes that an application registers are unregistered when it terminates.
 >
@@ -68,9 +68,7 @@ Use of the formatted output functions with *security enhancements* e.g. [_vsntpr
 
 The return value `HWND` of *CreateWindow* should be checked for `NULL` in which case use *GetLastError* for extended information.
 
-`WM_QUIT` causes *GetMessage* to return zero, otherwise it is always nonzero.
-
-*GetMessage* can return -1 so it should be checked using an if-else construct:
+`WM_QUIT` causes *GetMessage* to return zero, otherwise it is always nonzero, however *GetMessage* can return -1 if an error occurs so it should be checked using an if-else construct:
 
     while ( (bRet = GetMessage( &msg, NULL, 0, 0 )) != 0)
     {
@@ -91,5 +89,7 @@ The return value `HWND` of *CreateWindow* should be checked for `NULL` in which 
 1. [Windows > Apps > Win32 > API > Windows and Messages > Winuser.h > RegisterClassEx function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-registerclassexa)
 1. [Windows > Apps > Win32 > API > Windows and Messages > Winuser.h > CreateWindowEx function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-createwindowexa)
 1. [Windows > Apps > Win32 > API > Windows and Messages > Winuser.h > GetMessage function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getmessage)
+
+## Chap04
 
 ... work in progress ...

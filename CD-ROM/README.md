@@ -46,3 +46,7 @@ Use of the formatted output functions with *security enhancements* e.g. [_vsntpr
 
 1. [Docs > Microsoft C++, C, and Assembler > C runtime library > UCRT reference > CRT alphabetical function reference > vsnprintf_s, _vsnprintf_s, _vsnprintf_s_l, _vsnwprintf_s, _vsnwprintf_s_l](https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/vsnprintf-s-vsnprintf-s-vsnprintf-s-l-vsnwprintf-s-vsnwprintf-s-l?view=vs-2019)
 1. [Docs > Visual Studio > IDE > Debugging > How-to guides > Application types > C/C++ code > CRT debugging > Macros for reporting](https://docs.microsoft.com/en-us/visualstudio/debugger/macros-for-reporting?view=vs-2019)
+
+## Chap03
+
+... work in progress ...

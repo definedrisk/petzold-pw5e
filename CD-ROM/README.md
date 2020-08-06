@@ -1,4 +1,4 @@
-# Chapter example Workspaces from CD-ROM updated to VS2019 Solutions
+# Example Workspaces for each chapter from CD-ROM updated to VS2019 Solutions
 
 Opened each 'Workspace' in VS2019 (16.6.5 at time of writing) and upgraded to 'Solution'. Summary of additional changes made before build.
 
@@ -24,9 +24,10 @@ The "Helpful web links" below are what I consider to be the up-to-date Microsoft
   1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
   1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
 
-### Helpful web links
+#### Useful Microsoft Documentation
 
-1. [Windows > Apps > Win32 > Get Started  Using the Windows Headers](https://docs.microsoft.com/en-us/windows/win32/winprog/windows-data-types)
+1. [Windows > Apps > Win32 > Get Started  Using the Windows Headers : Setting WINVER or _WIN32_WINNT](https://docs.microsoft.com/en-us/windows/win32/winprog/using-the-windows-headers#setting-winver-or-_win32_winnt)
+1. [Windows > Apps > Win32 > Get Started  Using the Windows Headers : Windows Data Types](https://docs.microsoft.com/en-us/windows/win32/winprog/windows-data-types)
 1. [Docs > Microsoft C++, C, and Assembler > C++ language > C++ language reference > Built-in types](https://docs.microsoft.com/en-us/cpp/cpp/fundamental-types-cpp?view=vs-2019)
 
 ## Chap02
@@ -36,7 +37,7 @@ The "Helpful web links" below are what I consider to be the up-to-date Microsoft
   1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
   1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
 
-### Comments
+#### Comments
 
 `_UNICODE` is defined by setting *Project Properties -> Advanced -> Character Set*, while  `UNICODE` is defined as an additional preprocessor definition at *Project Properties -> C/C++ -> Preprocessor -> Preprocessor Definitions*
 
@@ -46,7 +47,7 @@ Use of the formatted output functions with *security enhancements* e.g. [_vsntpr
 
 > ... does not guarantee the output is NULL terminated. This occurs when what you write to the buffer is larger than the buffer. It writes as many characters as it can before it runs out of room, without stopping one character sooner to append a NULL as the final character. Therefore ...
 
-### Helpful web links
+#### Useful Microsoft Documentation
 
 1. [Docs > Microsoft C++, C, and Assembler > C runtime library > UCRT reference > CRT alphabetical function reference > vsnprintf_s, _vsnprintf_s, _vsnprintf_s_l, _vsnwprintf_s, _vsnwprintf_s_l](https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/vsnprintf-s-vsnprintf-s-vsnprintf-s-l-vsnwprintf-s-vsnwprintf-s-l?view=vs-2019)
 1. [Docs > Visual Studio > IDE > Debugging > How-to guides > Application types > C/C++ code > CRT debugging > Macros for reporting](https://docs.microsoft.com/en-us/visualstudio/debugger/macros-for-reporting?view=vs-2019)
@@ -55,10 +56,10 @@ Use of the formatted output functions with *security enhancements* e.g. [_vsntpr
 
 ### Hellowin
 
-  1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
-  1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
+1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
+1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
 
-### Comments
+#### Comments
 
 *RegisterClassEx* function and *WNDCLASSEX* structure are now used giving some extra functionality. The *GetLastError* function is used establish a reason for failure if *RegisterClass* return value is zero. Note that:
 
@@ -83,7 +84,7 @@ The return value `HWND` of *CreateWindow* should be checked for `NULL` in which 
       }
     }
 
-### Helpful web links
+#### Useful Microsoft Documentation
 
 1. [Windows > Apps > Win32 > API > Windows and Messages > Winuser.h > WNDCLASSEX structure](https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-wndclassexa)
 1. [Windows > Apps > Win32 > API > Windows and Messages > Winuser.h > RegisterClassEx function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-registerclassexa)
@@ -91,5 +92,43 @@ The return value `HWND` of *CreateWindow* should be checked for `NULL` in which 
 1. [Windows > Apps > Win32 > API > Windows and Messages > Winuser.h > GetMessage function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getmessage)
 
 ## Chap04
+
+For each project:
+
+1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
+1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
+
+From Errata (Erratum 3):
+
+> All programs whose WM_PAINT message handler redraws the entire client area (that is, in all cases of repainting, without using ROPs (raster operations) that merge with the background), do not require a background brush.
+
+> Windows automatically fills the client area with the background brush selected when a window is resized. It does so by sending a WM_ERASEBKGND Notification to the window, and the default processing of this message, via the DefWindowProc() Function, is that the background is 'erased' by using the class background brush specified by the hbrBackground member of the WNDCLASS structure. If this is NULL, the background is not erased (although the application could process the WM_ERASEBKGND Notification and erase it manually). Thus, for programs that are going to fill the client area themselves in their WM_PAINT handler, this will result in a slower application that flickers needlessly. The flicker occurs because the application fills the client area completely immediately after Windows has just finished filling it in with the background brush.
+
+> To remove the background brush in any of these programs in the text book, change: 
+
+    WinMain():
+      //wndclass.hbrBackground = (HBRUSH) GetStockObject (WHITE_BRUSH) ;
+      wndclass.hbrBackground = NULL ;
+
+I disagree with Erratum 7 as this [stackoverflow answer](https://stackoverflow.com/questions/23001890/winapi-getupdaterect-with-brepaint-true-inside-wm-paint-doesnt-clear-the-pai/23005852#23005852) explains. Either check the *rcPaint* field of *PAINTSTRUCT* to determine what needs painting and end if this is empty end early OR call *InvalidateRect* (before *BeginPaint*) to invalidate the whole client area if desired. Once *BeginPaint* is called the erase handler is called if *fErase* flag was set in the paint structure (if any part of an invalidation requested erase background the whole invalid region is erased). Possibly use the above null background brush method described above to prevent flicker or alternatively validate then invalidate again without clearing background ahead of *BeginPaint*.
+
+### SysMets1
+
+1. SysMets1.c: line 6: comment out
+
+#### Comments
+
+Windows places a `WM_PAINT` message in the message queue becuase part of the client area is invalid. Unless you call *BeginPaint* and *EndPaint* (or *ValidateRect*) upon receiving the message then windows will continuously call `WM_PAINT`. Only one `WM_PAINT` is placed in the queue but this will be there as long as part of the client area is invalid. The *DefWindowProc* is simply:
+
+    case WM_PAINT:
+      BeginPaint (hwnd, &ps) ;
+      EndPaint (hwnd, &ps) ;
+      return 0 ;
+
+Default mapping of logical to physical coordinates is `MM_TEXT`(logical units are the same as physical pixels with the origin at the top left and positive values increasing to the right and down. This is the same system used to define invalid rectangle.
+
+### SysMets2
+
+### SysMets3
 
 ... work in progress ...

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SysMets1", "SysMets1.vcxproj", "{59593AD0-4551-4AD7-9C9E-780961BDB95C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{59593AD0-4551-4AD7-9C9E-780961BDB95C}.Debug|x86.ActiveCfg = Debug|Win32
+		{59593AD0-4551-4AD7-9C9E-780961BDB95C}.Debug|x86.Build.0 = Debug|Win32
+		{59593AD0-4551-4AD7-9C9E-780961BDB95C}.Release|x86.ActiveCfg = Release|Win32
+		{59593AD0-4551-4AD7-9C9E-780961BDB95C}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {93D68E9A-ECC4-4951-892F-CF15DC6C5288}
+	EndGlobalSection
+EndGlobal

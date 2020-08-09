@@ -118,7 +118,7 @@ There is disagreement with Erratum 7 as this [stackoverflow answer](https://stac
 
 1. [Windows > Apps > Win32 > API > Windows and Messages > Winuser.h > GetSystemMetrics function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getsystemmetrics)
 
-### SysMets1
+### SysMets1, SysMets2 & SysMets3
 
 1. SysMets1.c: line 6: comment out
 
@@ -133,14 +133,6 @@ Windows places a `WM_PAINT` message in the message queue when part of the client
 
 Default mapping of logical to physical coordinates is `MM_TEXT` (logical units are the same as physical pixels with the origin at the top left and positive values increasing to the right and down. This is the same system used to define the invalid rectangle.
 
-### SysMets2
-
-1. SysMets1.c: line 6: comment out
-
-#### Comments
-
-x
-
-### SysMets3
+There is certainly no point using the SM_SLOWMACHINE metric of *GetSystemMetrics* anymore: ["What is a SM_SLOWMACHINE", Raymond Chen, March 12 2007](https://devblogs.microsoft.com/oldnewthing/20070312-00/?p=27653) 
 
 ... work in progress ...

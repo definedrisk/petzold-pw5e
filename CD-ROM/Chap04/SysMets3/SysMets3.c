@@ -164,14 +164,14 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
           return 0 ;
           
      case WM_HSCROLL:
-               // Get all the vertial scroll bar information
+               // Get all the horizontal scroll bar information
 
           si.cbSize = sizeof (si) ;
           si.fMask  = SIF_ALL ;
+          GetScrollInfo(hwnd, SB_HORZ, &si) ;
 
                // Save the position for comparison later on
 
-          GetScrollInfo (hwnd, SB_HORZ, &si) ;
           iHorzPos = si.nPos ;
 
           switch (LOWORD (wParam))

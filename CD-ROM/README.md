@@ -93,24 +93,30 @@ The return value `HWND` of *CreateWindow* should be checked for `NULL` in which 
 
 ## Chap04
 
-For each project:
+### For each project
 
 1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
 1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
 
-From Errata (Erratum 3):
+#### Comments
+
+Erratum 3 states
 
 > All programs whose WM_PAINT message handler redraws the entire client area (that is, in all cases of repainting, without using ROPs (raster operations) that merge with the background), do not require a background brush.
-
-> Windows automatically fills the client area with the background brush selected when a window is resized. It does so by sending a WM_ERASEBKGND Notification to the window, and the default processing of this message, via the DefWindowProc() Function, is that the background is 'erased' by using the class background brush specified by the hbrBackground member of the WNDCLASS structure. If this is NULL, the background is not erased (although the application could process the WM_ERASEBKGND Notification and erase it manually). Thus, for programs that are going to fill the client area themselves in their WM_PAINT handler, this will result in a slower application that flickers needlessly. The flicker occurs because the application fills the client area completely immediately after Windows has just finished filling it in with the background brush.
-
-> To remove the background brush in any of these programs in the text book, change: 
+>
+> Windows automatically fills the client area with the background brush selected when a window is resized. It does so by sending a WM_ERASEBKGND Notification to the window, and the default processing of this message, via the DefWindowProc() Function, is that the background is 'erased' by using the class background brush specified by the hbrBackground member of the WNDCLASS structure. If this is NULL, the background is not erased (although the application could process the WM_ERASEBKGND Notification and erase it manually, it would typically process this message simply returning zero to signify that no change to background has occured). Thus, for programs that are going to fill the client area themselves in their WM_PAINT handler, erasing the background by painting with the background brush will result in a slower application that flickers needlessly. The flicker occurs because the application fills the client area completely immediately after Windows has just finished filling it in with the background brush.
+>
+>To remove the background brush in any of these programs in the text book, change:
 
     WinMain():
       //wndclass.hbrBackground = (HBRUSH) GetStockObject (WHITE_BRUSH) ;
       wndclass.hbrBackground = NULL ;
 
-I disagree with Erratum 7 as this [stackoverflow answer](https://stackoverflow.com/questions/23001890/winapi-getupdaterect-with-brepaint-true-inside-wm-paint-doesnt-clear-the-pai/23005852#23005852) explains. Either check the *rcPaint* field of *PAINTSTRUCT* to determine what needs painting and end if this is empty end early OR call *InvalidateRect* (before *BeginPaint*) to invalidate the whole client area if desired. Once *BeginPaint* is called the erase handler is called if *fErase* flag was set in the paint structure (if any part of an invalidation requested erase background the whole invalid region is erased). Possibly use the above null background brush method described above to prevent flicker or alternatively validate then invalidate again without clearing background ahead of *BeginPaint*.
+There is disagreement with Erratum 7 as this [stackoverflow answer](https://stackoverflow.com/questions/23001890/winapi-getupdaterect-with-brepaint-true-inside-wm-paint-doesnt-clear-the-pai/23005852#23005852) explains. Either check the *rcPaint* field of *PAINTSTRUCT* to determine what needs painting and if this is empty end early OR call *InvalidateRect* (before *BeginPaint*) to invalidate the whole (or appropriate part) of the client area. Once *BeginPaint* is called then *fErase* flag would usually be FALSE indicating that `WM_ERASEBKGND` (called by *BeginPaint*) has completed with a nonzero return value, otherwise *fErase* would be TRUE indicating that the background should still be dealt with (often the case when the background brush is NULL).
+
+#### Useful Microsoft Documentation
+
+1. [Windows > Apps > Win32 > API > Windows and Messages > Winuser.h > GetSystemMetrics function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getsystemmetrics)
 
 ### SysMets1
 
@@ -118,16 +124,22 @@ I disagree with Erratum 7 as this [stackoverflow answer](https://stackoverflow.c
 
 #### Comments
 
-Windows places a `WM_PAINT` message in the message queue becuase part of the client area is invalid. Unless you call *BeginPaint* and *EndPaint* (or *ValidateRect*) upon receiving the message then windows will continuously call `WM_PAINT`. Only one `WM_PAINT` is placed in the queue but this will be there as long as part of the client area is invalid. The *DefWindowProc* is simply:
+Windows places a `WM_PAINT` message in the message queue when part of the client area is invalid. Unless you call *BeginPaint* (and therefore *EndPaint*) or *ValidateRect* upon receiving the message then windows will continuously call `WM_PAINT`. Only one `WM_PAINT` is placed in the queue but this will be there as long as part of the client area is invalid. The *DefWindowProc* is simply:
 
     case WM_PAINT:
       BeginPaint (hwnd, &ps) ;
       EndPaint (hwnd, &ps) ;
       return 0 ;
 
-Default mapping of logical to physical coordinates is `MM_TEXT`(logical units are the same as physical pixels with the origin at the top left and positive values increasing to the right and down. This is the same system used to define invalid rectangle.
+Default mapping of logical to physical coordinates is `MM_TEXT` (logical units are the same as physical pixels with the origin at the top left and positive values increasing to the right and down. This is the same system used to define the invalid rectangle.
 
 ### SysMets2
+
+1. SysMets1.c: line 6: comment out
+
+#### Comments
+
+x
 
 ### SysMets3
 

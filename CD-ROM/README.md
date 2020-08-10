@@ -179,4 +179,14 @@ Various filled shapes demonstrated.
 
 1. [Windows > Apps > Win32 > Desktop Technologies > Graphics and Gaming > Windows GDI > Filled Shapes](https://docs.microsoft.com/en-us/windows/win32/gdi/filled-shapes)
 
+### Bezier
+
+#### Comments
+
+> When you draw a series of connected Bezier splines, the point of connection will be smooth only if the second control point of the first Bezier, the end point of the first Bezier (which is also the start point of the second Bezier), and the first control point of the second Bezier are colinear; that is, they lie on the same straight line.
+
+#### Useful Microsoft Documentation
+
+1. [Windows > Apps > Win32 > API > Windows GDI > Wingdi.h > PolyBezier function](https://docs.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-polybezier)
+
 ... work in progress ...

@@ -169,4 +169,14 @@ Introduced `CS_OWNDC` but not recommended to use. See ["What does the CS_OWNDC c
 
 1. [Windows > Apps > Win32 > API > Windows GDI > Wingdi.h > SaveDC function](https://docs.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-savedc)
 
+### LineDemo
+
+#### Comments
+
+Various filled shapes demonstrated.
+
+#### Useful Microsoft Documentation
+
+1. [Windows > Apps > Win32 > Desktop Technologies > Graphics and Gaming > Windows GDI > Filled Shapes](https://docs.microsoft.com/en-us/windows/win32/gdi/filled-shapes)
+
 ... work in progress ...

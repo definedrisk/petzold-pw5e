@@ -49,7 +49,6 @@ Use of the formatted output functions with *security enhancements* e.g. [_vsntpr
 
 #### Useful Microsoft Documentation
 
-1. [Docs > Microsoft C++, C, and Assembler > C runtime library > UCRT reference > CRT alphabetical function reference > vsnprintf_s, _vsnprintf_s, _vsnprintf_s_l, _vsnwprintf_s, _vsnwprintf_s_l](https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/vsnprintf-s-vsnprintf-s-vsnprintf-s-l-vsnwprintf-s-vsnwprintf-s-l?view=vs-2019)
 1. [Docs > Visual Studio > IDE > Debugging > How-to guides > Application types > C/C++ code > CRT debugging > Macros for reporting](https://docs.microsoft.com/en-us/visualstudio/debugger/macros-for-reporting?view=vs-2019)
 
 ## Chap03
@@ -116,11 +115,13 @@ There is disagreement with Erratum 7 as this [stackoverflow answer](https://stac
 
 #### Useful Microsoft Documentation
 
+1. [Windows > Apps > Win32 > API > Windows GDI > Winuser.h > BeginPaint function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-beginpaint)
+1. [Windows > Apps > Win32 > API > Windows GDI > Winuser.h > PAINTSTRUCT structure](https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-paintstruct)
 1. [Windows > Apps > Win32 > API > Windows and Messages > Winuser.h > GetSystemMetrics function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getsystemmetrics)
 
 ### SysMets1, SysMets2 & SysMets3
 
-1. SysMets1.c: line 6: comment out
+1. Line 6: comment out
 
 #### Comments
 
@@ -134,5 +135,38 @@ Windows places a `WM_PAINT` message in the message queue when part of the client
 Default mapping of logical to physical coordinates is `MM_TEXT` (logical units are the same as physical pixels with the origin at the top left and positive values increasing to the right and down. This is the same system used to define the invalid rectangle.
 
 There is certainly no point using the SM_SLOWMACHINE metric of *GetSystemMetrics* anymore: ["What is a SM_SLOWMACHINE", Raymond Chen, March 12 2007](https://devblogs.microsoft.com/oldnewthing/20070312-00/?p=27653) 
+
+## Chap05
+
+### For each project
+
+1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
+1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
+
+### DevCaps1
+
+#### Comments
+
+Introduction to display resolution, pixel and physcial size, and font dimensions and color. See links below for key functions introduced. Also *CreateCompatibleDC*, *CreateMetaFile*,
+
+#### Useful Microsoft Documentation
+
+1. [Windows > Apps > Win32 > API > Windows GDI > Winuser.h > GetDC function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getdc)
+1. [Windows > Apps > Win32 > API > Windows GDI > Winuser.h > GetWindowDC function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getwindowdc)
+1. [Windows > Apps > Win32 > API > Windows GDI > Wingdi.h > CreateDC function](https://docs.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-createdca)
+1. [Windows > Apps > Win32 > API > Windows GDI > Wingdi.h > CreateIC function](https://docs.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-createica)
+1. [Windows > Apps > Win32 > API > Windows GDI > Wingdi.h > GetDeviceCaps function](https://docs.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-getdevicecaps)
+
+### SineWave
+
+1. Line 85: insert: `EndPaint (hwnd, &ps) ;` 
+
+#### Comments
+
+Introduced `CS_OWNDC` but not recommended to use. See ["What does the CS_OWNDC class style do?", Raymond Chen, June 1 2006](https://devblogs.microsoft.com/oldnewthing/20060601-06/?p=31003).
+
+#### Useful Microsoft Documentation
+
+1. [Windows > Apps > Win32 > API > Windows GDI > Wingdi.h > SaveDC function](https://docs.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-savedc)
 
 ... work in progress ...

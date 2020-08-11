@@ -1,16 +1,20 @@
 # Example Workspaces for each chapter from CD-ROM updated to VS2019 Solutions
 
-Opened each 'Workspace' in VS2019 (16.6.5 at time of writing) and upgraded to 'Solution'. Summary of additional changes made before build.
+## Summary
 
-To help understand the changes made for the *revisited* code at the top level of this repo (as described by the main [README.MD](../README.MD) and the [Errata](../Errata/Programming%20Windows%2C%205th%20Edition%2C%20Errata%20Addendum%20-%20Jason%20Doucette.html)) open one instance of VS2019 using the [CMakeLists.txt](../CMakeLists.txt) file and compare to a second instance of VS2019 with the appropriate solution opened from this CD-ROM sub-folder. These Visual Studio Solutions provide the minimum change to "get-it-working" from the CD-ROM directly in VS2019. By comparing the two versions of the code and reading the associated notes below, the scope of changes to bring it to the *revisited* standard can be seen.
+Opened each 'Workspace' in VS2019 (16.6.5 at time of writing) from CD-ROM accompanying the book and upgraded to 'Solution'. This document is a summary of the additional changes made before build.
 
-(The seperate [VS2019 New Projects](../VS2019%20New%20Projects) folder contains just a few projects created from scratch - see the folders associated [README.MD](../VS2019%20New%20Projects/README.MD) for details)
+To help understand the changes made for the *revisited* code at the top level of this repo (as described by the main [README.MD](../README.MD) and the [Errata](../Errata/Programming%20Windows%2C%205th%20Edition%2C%20Errata%20Addendum%20-%20Jason%20Doucette.html)) open one instance of VS2019 using the [CMakeLists.txt](../CMakeLists.txt) file and compare to a second instance of VS2019 with the appropriate solution opened from **this** CD-ROM sub-folder. These Visual Studio Solutions provide the minimum change to "get-it-working" from the CD-ROM directly in VS2019. By comparing the two versions of the code and reading the associated notes below, the changes to bring the code to the *revisited* standard can be seen.
 
-The "Helpful web links" below are what I consider to be the up-to-date Microsoft references for the main points of relevance in each example (clearly over time these links may become invalid or change).
+(The seperate [VS2019 **New** Projects](../VS2019%20New%20Projects) folder contains just a few projects created from scratch - see the folders associated [README.MD](../VS2019%20New%20Projects/README.MD) for details)
+
+## Scope
+
+In addition to the minimal required **Changes** in most cases I have added **Comments** to summarise some of the main points demonstrated by each example and **Helpful web links** which I consider to be the up-to-date Microsoft references for the main points of relevance in each example (clearly over time these links may become invalid or change). There are also some links to Raymond Chen's ['The Old New Thing'](https://devblogs.microsoft.com/oldnewthing/).
 
 ---
 
-## Useful Microsoft Documentation for Windows
+## Useful Microsoft Documentation Entry Point for Win32
 
 1. [Windows / Apps / Win32 / Build desktop Windows apps using the Win32 API](https://docs.microsoft.com/en-us/windows/win32/)
 1. [Docs > Visual Studio > IDE > Debugging > How-to guides > Application types > C/C++ code > CRT debugging > CRT debugging techniques](https://docs.microsoft.com/en-us/visualstudio/debugger/crt-debugging-techniques?view=vs-2019)
@@ -20,6 +24,8 @@ The "Helpful web links" below are what I consider to be the up-to-date Microsoft
 ## Chap01
 
 ### HelloMsg
+
+#### Changes
 
   1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
   1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
@@ -34,6 +40,8 @@ The "Helpful web links" below are what I consider to be the up-to-date Microsoft
 
 ### ScrnSize
 
+#### Changes
+
   1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
   1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
 
@@ -41,9 +49,13 @@ The "Helpful web links" below are what I consider to be the up-to-date Microsoft
 
 `_UNICODE` is defined by setting *Project Properties -> Advanced -> Character Set*, while  `UNICODE` is defined as an additional preprocessor definition at *Project Properties -> C/C++ -> Preprocessor -> Preprocessor Definitions*
 
+From Errata:
+
 > ... to maintain a single source that compiles in both ASCII and Unicode, you will need to define some identifiers. The UNICODE (without the underscore) identifier is recognized by the Win32 API. The _UNICODE (with the underscore) identifier is recognized by the C run-time library. Define it if you use any C run-time functions that have strings as parameters.
 
-Use of the formatted output functions with *security enhancements* e.g. [_vsntprintf_s](https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/vsnprintf-s-vsnprintf-s-vsnprintf-s-l-vsnwprintf-s-vsnwprintf-s-l?view=vs-2019) always adds a terminating `NULL` therefore *sizeOfBuffer* does not need to be reduced by 1 as terminating null is always appended and *count* should be a suitable size to accomodate the extra `NULL` *or* `_TRUNCATE` should be used otherwise invalid parameter handler is invoked. This statement is no longer relevant:
+Use of the formatted output functions with *security enhancements* e.g. [_vsntprintf_s](https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/vsnprintf-s-vsnprintf-s-vsnprintf-s-l-vsnwprintf-s-vsnwprintf-s-l?view=vs-2019) always adds a terminating `NULL` therefore *sizeOfBuffer* does not need to be reduced by 1 as terminating null is always appended and *count* should be a suitable size to accomodate the extra `NULL` *or* `_TRUNCATE` should be used otherwise the invalid parameter handler is invoked.
+
+Therefore this statement from Errata is no **longer relevant**:
 
 > ... does not guarantee the output is NULL terminated. This occurs when what you write to the buffer is larger than the buffer. It writes as many characters as it can before it runs out of room, without stopping one character sooner to append a NULL as the final character. Therefore ...
 
@@ -55,12 +67,16 @@ Use of the formatted output functions with *security enhancements* e.g. [_vsntpr
 
 ### Hellowin
 
+#### Changes
+
 1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
 1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
 
 #### Comments
 
-*RegisterClassEx* function and *WNDCLASSEX* structure are now used giving some extra functionality. The *GetLastError* function is used establish a reason for failure if *RegisterClass* return value is zero. Note that:
+*RegisterClassEx* function and *WNDCLASSEX* structure are now used giving some extra functionality. The *GetLastError* function is used establish a reason for failure if *RegisterClass* return value is zero.
+
+Note from Microsoft Documentation of *RegisterClass* that:
 
 > All window classes that an application registers are unregistered when it terminates.
 >
@@ -74,7 +90,7 @@ The return value `HWND` of *CreateWindow* should be checked for `NULL` in which 
     {
       if (bRet == -1)
       {
-        // handle the error and possibly exit
+        // handle the error using GetLastError() and possibly exit 
       }
       else
       {
@@ -94,6 +110,8 @@ The return value `HWND` of *CreateWindow* should be checked for `NULL` in which 
 
 ### For each project
 
+#### Changes
+
 1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
 1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
 
@@ -101,13 +119,14 @@ The return value `HWND` of *CreateWindow* should be checked for `NULL` in which 
 
 Erratum 3 states
 
-> All programs whose WM_PAINT message handler redraws the entire client area (that is, in all cases of repainting, without using ROPs (raster operations) that merge with the background), do not require a background brush.
+>All programs whose WM_PAINT message handler redraws the entire client area (that is, in all cases of repainting, without using ROPs (raster operations) that merge with the background), do not require a background brush.
 >
-> Windows automatically fills the client area with the background brush selected when a window is resized. It does so by sending a WM_ERASEBKGND Notification to the window, and the default processing of this message, via the DefWindowProc() Function, is that the background is 'erased' by using the class background brush specified by the hbrBackground member of the WNDCLASS structure. If this is NULL, the background is not erased (although the application could process the WM_ERASEBKGND Notification and erase it manually, it would typically process this message simply returning zero to signify that no change to background has occured). Thus, for programs that are going to fill the client area themselves in their WM_PAINT handler, erasing the background by painting with the background brush will result in a slower application that flickers needlessly. The flicker occurs because the application fills the client area completely immediately after Windows has just finished filling it in with the background brush.
+>Windows automatically fills the client area with the background brush selected when a window is resized. It does so by sending a WM_ERASEBKGND Notification to the window, and the default processing of this message, via the DefWindowProc() Function, is that the background is 'erased' by using the class background brush specified by the hbrBackground member of the WNDCLASS structure. If this is NULL, the background is not erased (although the application could process the WM_ERASEBKGND Notification and erase it manually).
 >
->To remove the background brush in any of these programs in the text book, change:
+>Thus, for programs that are going to fill the client area themselves in their WM_PAINT handler, this will result in a slower application that flickers needlessly. The flicker occurs because the application fills the client area completely immediately after Windows has just finished filling it in with the background brush.
+>
+>To remove the background brush in any of these programs in the text book, change the WinMain() line:
 
-    WinMain():
       //wndclass.hbrBackground = (HBRUSH) GetStockObject (WHITE_BRUSH) ;
       wndclass.hbrBackground = NULL ;
 
@@ -121,6 +140,8 @@ There is disagreement with Erratum 7 as this [stackoverflow answer](https://stac
 
 ### SysMets1, SysMets2 & SysMets3
 
+#### Changes
+
 1. Line 6: comment out
 
 #### Comments
@@ -132,13 +153,15 @@ Windows places a `WM_PAINT` message in the message queue when part of the client
       EndPaint (hwnd, &ps) ;
       return 0 ;
 
-Default mapping of logical to physical coordinates is `MM_TEXT` (logical units are the same as physical pixels with the origin at the top left and positive values increasing to the right and down. This is the same system used to define the invalid rectangle.
+Default mapping of logical to physical coordinates is `MM_TEXT` (logical units are the same as physical pixels with the origin at the top left and positive values increasing to the right and down). This is the same system used to define the invalid rectangle.
 
-There is certainly no point using the SM_SLOWMACHINE metric of *GetSystemMetrics* anymore: ["What is a SM_SLOWMACHINE", Raymond Chen, March 12 2007](https://devblogs.microsoft.com/oldnewthing/20070312-00/?p=27653) 
+There is no point using the SM_SLOWMACHINE metric of *GetSystemMetrics* anymore: ["What is a SM_SLOWMACHINE", Raymond Chen, March 12 2007](https://devblogs.microsoft.com/oldnewthing/20070312-00/?p=27653) 
 
 ## Chap05
 
 ### For each project
+
+#### Changes
 
 1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
 1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
@@ -159,6 +182,10 @@ Introduction to display resolution, pixel and physcial size, and font dimensions
 
 ### SineWave
 
+#### Changes
+
+From Errata:
+
 1. Line 85: insert: `EndPaint (hwnd, &ps) ;` 
 
 #### Comments
@@ -167,6 +194,7 @@ Introduced `CS_OWNDC` but not recommended to use. See ["What does the CS_OWNDC c
 
 #### Useful Microsoft Documentation
 
+1. [Windows  Apps  Win32  Desktop Technologies  Graphics and Gaming  Windows GDI > Display Device Context Defaults](https://docs.microsoft.com/en-us/windows/win32/gdi/display-device-context-defaults)
 1. [Windows > Apps > Win32 > API > Windows GDI > Wingdi.h > SaveDC function](https://docs.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-savedc)
 
 ### LineDemo
@@ -188,5 +216,22 @@ Various filled shapes demonstrated.
 #### Useful Microsoft Documentation
 
 1. [Windows > Apps > Win32 > API > Windows GDI > Wingdi.h > PolyBezier function](https://docs.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-polybezier)
+
+### AltWind
+
+#### Comments
+
+Generally for all GDI objects:
+
+- You should eventually delete all GDI objects that you create.
+- Dont delete GDI objects while they are selected into a valid Device Context.
+- Dont delete stock objects.
+
+Creating, Selecting and Deleting Pens. Use of *CreatePen* and *CreatePenIndirect* using a `LOGPEN` 
+structure. Raster Operation (ROP) is a bitwise boolean operation with pixels. Binary Raster Operation (ROP2) when just two pixel patterns involved (the pen and destination). Demonstrate `ALTERNATE` and `WINDING` parameters for the *Polygon Fill Mode* (Device Context Attribute). 
+
+#### Useful Microsoft Documentation
+
+1. [Windows > Apps > Win32 > API > Windows GDI > Wingdi.h > SetPolyFillMode funcion](https://docs.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-setpolyfillmode)
 
 ... work in progress ...

@@ -155,7 +155,7 @@ Windows places a `WM_PAINT` message in the message queue when part of the client
 
 Default mapping of logical to physical coordinates is `MM_TEXT` (logical units are the same as physical pixels with the origin at the top left and positive values increasing to the right and down). This is the same system used to define the invalid rectangle.
 
-There is no point using the SM_SLOWMACHINE metric of *GetSystemMetrics* anymore: ["What is a SM_SLOWMACHINE", Raymond Chen, March 12 2007](https://devblogs.microsoft.com/oldnewthing/20070312-00/?p=27653) 
+There is no point using the SM_SLOWMACHINE metric of *GetSystemMetrics* anymore: ["What is a SM_SLOWMACHINE", Raymond Chen, March 12 2007](https://devblogs.microsoft.com/oldnewthing/20070312-00/?p=27653)
 
 ## Chap05
 
@@ -186,7 +186,7 @@ Introduction to display resolution, pixel and physcial size, and font dimensions
 
 From Errata:
 
-1. Line 85: insert: `EndPaint (hwnd, &ps) ;` 
+1. Line 85: insert: `EndPaint (hwnd, &ps) ;`
 
 #### Comments
 
@@ -227,11 +227,24 @@ Generally for all GDI objects:
 - Dont delete GDI objects while they are selected into a valid Device Context.
 - Dont delete stock objects.
 
-Creating, Selecting and Deleting Pens. Use of *CreatePen* and *CreatePenIndirect* using a `LOGPEN` 
-structure. Raster Operation (ROP) is a bitwise boolean operation with pixels. Binary Raster Operation (ROP2) when just two pixel patterns involved (the pen and destination). Demonstrate `ALTERNATE` and `WINDING` parameters for the *Polygon Fill Mode* (Device Context Attribute). 
+Creating, Selecting and Deleting Pens. Use of *CreatePen* and *CreatePenIndirect* using a `LOGPEN` structure. Raster Operation (ROP) is a bitwise boolean operation with pixels. Binary Raster Operation (ROP2) when just two pixel patterns involved (the pen and destination). Demonstrate `ALTERNATE` and `WINDING` parameters for the *Polygon Fill Mode* (Device Context Attribute).
 
 #### Useful Microsoft Documentation
 
 1. [Windows > Apps > Win32 > API > Windows GDI > Wingdi.h > SetPolyFillMode funcion](https://docs.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-setpolyfillmode)
 
-... work in progress ...
+### WhatSize
+
+#### Comments
+
+Metric mapping modes (see pp.184-185 for details):
+
+- *Window origin* default (0,0) can be changed.
+- *Viewport origin* default (0,0) can be changed.
+- *Window extent* default set by mapping mode and resolution of device cannot be changed.
+- *Viewport extent* default set by mapping mode and resolution of device cannot be changed.
+- The extents *Window extent* and *Viewport extent* aren't important by themselves but take on meaning when expressed as ratios of each other.
+
+(An)Isotropic mapping modes (see pp.188-192 for details):
+
+- Let you change the viewport and window extents.

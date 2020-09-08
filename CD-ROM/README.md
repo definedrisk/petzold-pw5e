@@ -231,7 +231,7 @@ Creating, Selecting and Deleting Pens. Use of *CreatePen* and *CreatePenIndirect
 
 #### Useful Microsoft Documentation
 
-1. [Windows > Apps > Win32 > API > Windows GDI > Wingdi.h > SetPolyFillMode funcion](https://docs.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-setpolyfillmode)
+1. [Windows > Apps > Win32 > API > Windows GDI > Wingdi.h > SetPolyFillMode function](https://docs.microsoft.com/en-us/windows/win32/api/wingdi/nf-wingdi-setpolyfillmode)
 
 ### WhatSize
 
@@ -251,11 +251,33 @@ Metric mapping modes (see pp.184-185 for details):
 
 ### RandRect
 
-No additional comments.
+#### Comments
+
+Demonstrate use of *PeekMessage* function instead of *GetMessage* to create an alternative style message loop:
+
+     while (TRUE)
+     {
+          if (PeekMessage (&msg, NULL, 0, 0, PM_REMOVE))
+          {
+               if (msg.message == WM_QUIT)
+                    break ;
+               
+               TranslateMessage (&msg) ;
+               DispatchMessage (&msg) ;
+          }
+          else
+               DrawRectangle (hwnd) ;
+     }
+
+#### Useful Microsoft Documentation
+
+1. [Windows > Apps > Win32 > API > Windows and Messages > Winuser.h > PeekMessageA function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-peekmessagea)
 
 ### Clover
 
-No additional comments.
+#### Comments
+
+Demonstrate creation, combination and use of Region (GDI) objects for clipping the device context during paint. They should be deleted as with other GDI objects after use. A `COMPLEXREGION` is a combination of `SIMPLEREGION` objects.
 
 ## Chap06
 

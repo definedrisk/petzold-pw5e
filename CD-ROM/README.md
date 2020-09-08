@@ -248,3 +248,15 @@ Metric mapping modes (see pp.184-185 for details):
 (An)Isotropic mapping modes (see pp.188-192 for details):
 
 - Let you change the viewport and window extents.
+
+### RandRect
+
+No additional comments.
+
+### Clover
+
+No additional comments.
+
+## Chap06
+
+... *work in progress* ...

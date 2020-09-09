@@ -36,7 +36,9 @@ In addition to the minimal required **Changes** in most cases I have added **Com
 1. [Windows > Apps > Win32 > Get Started  Using the Windows Headers : Windows Data Types](https://docs.microsoft.com/en-us/windows/win32/winprog/windows-data-types)
 1. [Docs > Microsoft C++, C, and Assembler > C++ language > C++ language reference > Built-in types](https://docs.microsoft.com/en-us/cpp/cpp/fundamental-types-cpp?view=vs-2019)
 
-## Chap02
+---
+
+## Chap02 An Introduction to UNICODE
 
 ### ScrnSize
 
@@ -63,7 +65,9 @@ Therefore this statement from Errata is no **longer relevant**:
 
 1. [Docs > Visual Studio > IDE > Debugging > How-to guides > Application types > C/C++ code > CRT debugging > Macros for reporting](https://docs.microsoft.com/en-us/visualstudio/debugger/macros-for-reporting?view=vs-2019)
 
-## Chap03
+---
+
+## Chap03 Windows and Messages
 
 ### Hellowin
 
@@ -101,12 +105,15 @@ The return value `HWND` of *CreateWindow* should be checked for `NULL` in which 
 
 #### Useful Microsoft Documentation
 
+1. [Windows > Apps > Win32 > Desktop Technologies > Desktop App User Interface > Windows and Messages](https://docs.microsoft.com/en-us/windows/win32/winmsg/messages-and-message-queues)
 1. [Windows > Apps > Win32 > API > Windows and Messages > Winuser.h > WNDCLASSEX structure](https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-wndclassexa)
 1. [Windows > Apps > Win32 > API > Windows and Messages > Winuser.h > RegisterClassEx function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-registerclassexa)
 1. [Windows > Apps > Win32 > API > Windows and Messages > Winuser.h > CreateWindowEx function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-createwindowexa)
 1. [Windows > Apps > Win32 > API > Windows and Messages > Winuser.h > GetMessage function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getmessage)
 
-## Chap04
+---
+
+## Chap04 An Exercise in Text Output
 
 ### For each project
 
@@ -157,7 +164,9 @@ Default mapping of logical to physical coordinates is `MM_TEXT` (logical units a
 
 There is no point using the SM_SLOWMACHINE metric of *GetSystemMetrics* anymore: ["What is a SM_SLOWMACHINE", Raymond Chen, March 12 2007](https://devblogs.microsoft.com/oldnewthing/20070312-00/?p=27653)
 
-## Chap05
+---
+
+## Chap05 Basic Drawing
 
 ### For each project
 
@@ -279,6 +288,41 @@ Demonstrate use of *PeekMessage* function instead of *GetMessage* to create an a
 
 Demonstrate creation, combination and use of Region (GDI) objects for clipping the device context during paint. They should be deleted as with other GDI objects after use. A `COMPLEXREGION` is a combination of `SIMPLEREGION` objects.
 
-## Chap06
+---
+
+## Chap06 The Keyboard
+
+### For each project
+
+#### Changes
+
+1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
+1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
+
+### SysMets4
+
+#### Changes
+
+1. Line 6: comment out
+
+#### Comments
+
+Using the `WM_KEYDOWN` messages to send a subsequent message direct to the window thereby using the exisiting code logic (in this case scroll bar messages as would be sent using mouse clicks in the scroll bars which can now also be controlled using key presses).
+
+### KeyView1
+
+#### Comments
+
+For a window procedure used with two window classes, one registred with *RegisterClassW* and one with *RegisterClassA* then it is necessary to establish which version (8-bit ANSI or 16-bit UNICODE) the functions dealing with characters and strings should be using.  Within the procedure use:
+
+    fUnicode = IsWindowUnicode (hwnd) ;
+
+Line 114: Added *return* as WM_SIZE is called afterwards.
+
+This demonstrates some more techniques for drawing including displaying text on top of exisiting to create underline (using transparent background). Also the *ScrollWindow* function is used (which updates the scrolled region immediately) but does not update the "exposed" region until the application retrives WM_PAINT (or a call to *UpdateWindow* is made). In this case it is still necessary to "draw" all the window in WM_PAINT to cope with the situation when the window is resized (whole window is invalid).
+
+### x
+
+---
 
 ... *work in progress* ...

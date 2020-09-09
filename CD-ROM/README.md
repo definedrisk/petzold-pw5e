@@ -309,7 +309,7 @@ Demonstrate creation, combination and use of Region (GDI) objects for clipping t
 
 Using the `WM_KEYDOWN` messages to send a subsequent message direct to the window thereby using the exisiting code logic (in this case scroll bar messages as would be sent using mouse clicks in the scroll bars which can now also be controlled using key presses).
 
-### KeyView1
+### KeyView1 & KeyView2
 
 #### Comments
 
@@ -319,9 +319,17 @@ For a window procedure used with two window classes, one registred with *Registe
 
 Line 114: Added *return* as WM_SIZE is called afterwards.
 
-This demonstrates some more techniques for drawing including displaying text on top of exisiting to create underline (using transparent background). Also the *ScrollWindow* function is used (which updates the scrolled region immediately) but does not update the "exposed" region until the application retrives WM_PAINT (or a call to *UpdateWindow* is made). In this case it is still necessary to "draw" all the window in WM_PAINT to cope with the situation when the window is resized (whole window is invalid).
+This demonstrates some more techniques for drawing including displaying text on top of exisiting to create underline (using transparent background). Also the *ScrollWindow* function is used (which updates the scrolled region immediately) but does not update the "exposed" region until the application retrieves WM_PAINT (or a call to *UpdateWindow* is made). In this case it is still necessary to "draw" all the window in WM_PAINT to cope with the situation when the window is resized (whole window is invalid).
 
-### x
+### StokFont
+
+#### Changes
+
+1. Ensure that UNICODE is removed from *Project Properties -> C/C++ -> Preprocessor -> Preprocessor Definitions*
+
+#### Comments
+
+Demonstrate various "standard" system fonts and character sets.
 
 ---
 

@@ -331,6 +331,12 @@ This demonstrates some more techniques for drawing including displaying text on 
 
 Demonstrate various "standard" system fonts and character sets.
 
+### Typer
+
+#### Comments
+
+Demonstrate character processing using basic text editor and use of caret functions.  Cursor (caret) movement.  No scrolling or save and when window resizes buffer is lost.
+
 ---
 
 ... *work in progress* ...

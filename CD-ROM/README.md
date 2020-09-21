@@ -366,6 +366,18 @@ Basic mouse click hit testing. Note that whole window is repainted. Instead it w
 
 Keyboard interface added. Uses *SendMessage* to send `WM_LBUTTONDOWN` to itself. I have edited the code to display the last known values of x and y (during the keyboard operation).  Therefore when clicking on further boxes the x and y values are not updated. This also demonstrates the necessary code to display *dynmamic* text i.e. formulating the text in a temporary buffer and passing that to the approproate Text output function.
 
+### Checker 3
+
+#### Comments
+
+Demonstrate use of Child Windows.
+
+### Checker 4
+
+#### Comments
+
+Add keyboard processing with Child Windows. Note that child windows do not automatically get focus.
+
 
 
 ... *work in progress* ...

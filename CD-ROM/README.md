@@ -319,7 +319,7 @@ For a window procedure used with two window classes, one registred with *Registe
 
 Line 114: Added *return* as WM_SIZE is called afterwards.
 
-This demonstrates some more techniques for drawing including displaying text on top of exisiting to create underline (using transparent background). Also the *ScrollWindow* function is used (which updates the scrolled region immediately) but does not update the "exposed" region until the application retrieves WM_PAINT (or a call to *UpdateWindow* is made). In this case it is still necessary to "draw" all the window in WM_PAINT to cope with the situation when the window is resized (whole window is invalid).
+This demonstrates some more techniques for drawing including displaying text on top of existing text to create an underline (using transparent background). Also the *ScrollWindow* function is used (which updates the scrolled region immediately) but does not update the "exposed" region until the application retrieves WM_PAINT (or a call to *UpdateWindow* is made). In this case it is still necessary to "draw" all the window in WM_PAINT to cope with the situation when the window is resized (whole window is invalid).
 
 ### StokFont
 
@@ -331,6 +331,41 @@ This demonstrates some more techniques for drawing including displaying text on 
 
 Demonstrate various "standard" system fonts and character sets.
 
+### Typer
+
+#### Comments
+
+Concept of a single caret being a single object shared by system queue (and therefore multiple windows).  Use `WM_SETFOCUS` and `WM_KILLFOCUS` (always occur in pairs) to call *CreateCaret* and *DestroyCaret*.  Use *ShowCaret* and *HideCaret* during drawing (other than during WM_PAINT).
+
 ---
+
+## Chap07 The Mouse
+
+### For each project
+
+#### Changes
+
+1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
+1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
+
+### Connect
+
+#### Comments
+
+Demonstrate use of `WM_LBUTTONDOWN`, `WM_MOUSEMOVE` and `WM_LBUTTONUP`to process some simple mouse actions.
+
+### Checker1
+
+#### Comments
+
+Basic mouse click hit testing. Note that whole window is repainted. Instead it would be possible to add some extra logic to draw only the invalid area by using *IntersectRect* function along with the *ps.rcPaint* (updated during call to *BeginPaint*).
+
+### Checker 2
+
+#### Comments
+
+Keyboard interface added. Uses *SendMessage* to send `WM_LBUTTONDOWN` to itself. I have edited the code to display the last known values of x and y (during the keyboard operation).  Therefore when clicking on further boxes the x and y values are not updated. This also demonstrates the necessary code to display *dynmamic* text i.e. formulating the text in a temporary buffer and passing that to the approproate Text output function.
+
+
 
 ... *work in progress* ...

@@ -400,12 +400,48 @@ Use *GET_X_LPARAM* and *GET_Y_LPARAM* macros.
 
 #### Comments
 
-Demonstrate use of mouse wheel and scrolling.  This program requires `WIN_VER` and `_WIN32_WINNT` setting (the errata are superceeded by the link below).
+Demonstrate use of mouse wheel and scrolling.  This program requires `WIN_VER` and `_WIN32_WINNT` setting (the errata are superceeded by the link below).  There is a difference in scrollbar processing to demonstrate `SB_THUMBTRACK` vs `SB_THUMBPOSITION` when handling `WM_VSCROLL` and `WM_HSCROLL` respectively.
 
 #### Useful Microsoft Documentation
 
 1. [Docs > Microsoft C++, C, and Assembler > Porting and upgrading > Upgrade projects from earlier versions > Update WINVER and _WIN32_WINNT](https://docs.microsoft.com/en-us/cpp/porting/modifying-winver-and-win32-winnt?view=vs-2019)
 
 ---
+
+## Chap08 The Timer
+
+### For each project
+
+#### Changes
+
+1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
+1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
+
+### Beeper1 & Beeper2
+
+#### Comments
+
+Responding to `WM_TIMER` directly in the window procedure or via a callback funcion.  It is considered good practice to call *KillTimer* on any active timers during `WM_DESTROY`.
+
+#### Useful Microsoft Documentation
+
+1. [Windows > Apps > Win32 > Desktop Technologies > Desktop App User Interface > Windows and Messages > WM_TIMER message](https://docs.microsoft.com/en-us/windows/win32/winmsg/wm-timer)
+2. [Windows > Apps > Win32 > API > Windows and Messages > Winuser.h > TIMERPROC callback function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nc-winuser-timerproc)
+
+### DigClock
+
+#### Comments
+
+Note that multiple functions are used to implement different parts of drawing functionality on the same Device Context (i.e. typedef struct HDC__ *HDC defines a HDC as a pointer to a structure object) which includes modifying the window origin.
+
+#### Useful Microsoft Documentation
+
+1. [Windows > Apps > Win32 > Desktop Technologies > Desktop App User Interface > Internationalization > Locale Information Constants](https://docs.microsoft.com/en-us/windows/win32/intl/locale-information-constants)
+
+### Clock
+
+#### Comments
+
+Line 166 requires TRUE to draw all hands because the removal of previous second hand slowly erases parts of the minute and hour hands.
 
 ... *work in progress* ...

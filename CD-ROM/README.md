@@ -378,6 +378,34 @@ Demonstrate use of Child Windows.
 
 Add keyboard processing with Child Windows. Note that child windows do not automatically get focus.
 
+### BlokOut1 & BlokOut2
 
+#### Changes
+
+1. Use *GET_X_LPARAM* and *GET_Y_LPARAM* macros instead of *LOWORD (lParam)* and *HIWORD (lParam)* respectively in both `WM_MOUSEMOVE` and `WM_LBUTTONUP` message processing.
+
+#### Comments
+
+Demonstrate capture of mouse.  To avoid problems only capture when mouse button is pressed.  Even if captured, if no buttons are pressed and the cursor is moved over another window then `WM_MOUSEMOVE` messages will be sent to the other window.
+
+> Do not use the LOWORD or HIWORD macros to extract the x- and y- coordinates of the cursor position because these macros return incorrect results on systems with multiple monitors. Systems with multiple monitors can have negative x- and y- coordinates, and LOWORD and HIWORD treat the coordinates as unsigned quantities.
+
+Use *GET_X_LPARAM* and *GET_Y_LPARAM* macros.
+
+#### Useful Microsoft Documentation
+
+1. [Windows > Apps > Win32 > Desktop Technologies > Desktop App User Interface > User Interaction > Legacy Features > Keyboard and Mouse Input](https://docs.microsoft.com/en-us/windows/win32/inputdev/wm-mousemove)
+
+### SysMets
+
+#### Comments
+
+Demonstrate use of mouse wheel and scrolling.  This program requires `WIN_VER` and `_WIN32_WINNT` setting (the errata are superceeded by the link below).
+
+#### Useful Microsoft Documentation
+
+1. [Docs > Microsoft C++, C, and Assembler > Porting and upgrading > Upgrade projects from earlier versions > Update WINVER and _WIN32_WINNT](https://docs.microsoft.com/en-us/cpp/porting/modifying-winver-and-win32-winnt?view=vs-2019)
+
+---
 
 ... *work in progress* ...

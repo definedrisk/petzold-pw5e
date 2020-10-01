@@ -151,7 +151,8 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
           
      case WM_TIMER :
           GetLocalTime (&st) ;
-                    
+
+          // Have the hour or minute hands have changed
           fChange = st.wHour   != stPrevious.wHour ||
                     st.wMinute != stPrevious.wMinute ;
           
@@ -160,7 +161,8 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
           SetIsotropic (hdc, cxClient, cyClient) ;
           
           SelectObject (hdc, GetStockObject (WHITE_PEN)) ;
-          DrawHands (hdc, &stPrevious, fChange) ;
+          DrawHands (hdc, &stPrevious, fChange) ; // if the minute or hr hands
+          //have not moved then it is unnecessary to erase them
           
           SelectObject (hdc, GetStockObject (BLACK_PEN)) ;
           DrawHands (hdc, &st, TRUE) ; //TRUE is necessary here becuase the

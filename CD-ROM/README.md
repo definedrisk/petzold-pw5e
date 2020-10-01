@@ -458,10 +458,32 @@ This writes a black pixel at the location of the cursor after reporting the colo
 
 ### For each project
 
+From the errata:
+
+> "Message numbers in the second range (WM_USER through 0x7FFF) can be defined and used by an application to send messages within a private window class. These values cannot be used to define messages that are meaningful throughout an application, because some predefined window classes already define values in this range. For example, predefined control classes such as BUTTON, EDIT, LISTBOX, and COMBOBOX may use these values. Messages in this range should not be sent to other applications unless the applications have been designed to exchange messages and to attach the same meaning to the message numbers.
+
+> Message numbers in the third range (WM_APP through 0xBFFF) are available for application to use as private messages. Message in this range do not conflict with system messages."
+
 #### Changes
 
 1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
 1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
+
+#### Useful Microsoft Documentation
+
+1. [Windows > Apps > Win32 > Desktop Technologies > Desktop App User Interface > Windows Controls](https://docs.microsoft.com/en-us/windows/win32/controls/window-controls)
+1. [Windows > Apps > Win32 > Desktop Technologies > Desktop App User Interface > Windows Controls > Control Library](https://docs.microsoft.com/en-us/windows/win32/controls/individual-control-info)
+1. [The Old New Thing: Which message numbers belong to whom?](https://devblogs.microsoft.com/oldnewthing/20031202-00/?p=41653)
+
+### BtnLook
+
+#### Comments
+
+Demonstrates use of *GetDialogBaseUnits* to obatin width and height of characters in default font.  This returns roughly the same values as the *GetTextMetrics* function but ensures greater consistency with controls in dialog boxes.  Also discusses three ways to obtain hInstance:
+
+    hInst = ((LPCREATESTRUCT) lPAram) -> hInstance; // get the hInstance member as held in the "creation structure"
+    hInst = hInstance; // Use a global variable and set it form WinMain
+    hInst = GetWindowLong(hWnd, GWL_HINSTANCE)
 
 ### 
 

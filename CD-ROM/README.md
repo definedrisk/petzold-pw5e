@@ -444,4 +444,25 @@ Note that multiple functions are used to implement different parts of drawing fu
 
 Line 166 requires TRUE to draw all hands because the removal of previous second hand slowly erases parts of the minute and hour hands.
 
+### WhatClr
+
+#### Comments
+
+To demonstrate that drawing is possible (although no advised) anywhere on the screen I have added the following line to `WM_TIMER` message handler:
+
+    SetPixel(hdcScreen, pt.x, pt.y, 0);
+
+This writes a black pixel at the location of the cursor after reporting the colour.  Eventually these pixles are updated when their associated window refreshes.
+
+## Chap09 Child Window Controls
+
+### For each project
+
+#### Changes
+
+1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
+1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
+
+### 
+
 ... *work in progress* ...

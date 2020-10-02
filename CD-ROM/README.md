@@ -485,6 +485,29 @@ Demonstrates use of *GetDialogBaseUnits* to obatin width and height of character
     hInst = hInstance; // Use a global variable and set it form WinMain
     hInst = GetWindowLong(hWnd, GWL_HINSTANCE)
 
-### 
+From errata:
+
+> On page 368, Chapter 9, Check Boxes, the book explains what you must pass in the wParam parameter in a SendMessage() call when sending a BM_SETCHECK Message to a check box control to set or remove the check mark:
+
+> "The wParam parameter is set to 1 to create a check mark and to 0 to remove it."
+
+> While this statement is correct, the BM_SETCHECK Message has identifiers already created that hold these values, so you need not remember them. They are:
+BST_CHECKED is defined as 1, which sets the button state to checked.
+BST_UNCHECKED is defined as 0, which sets the button state to cleared.
+BST_INDETERMINATE is defined as 2, which sets the button state to grayed, indicating an indeterminate state. (This is only used for buttons with the BS_3STATE or BS_AUTO3STATE style).
+
+### OwnDraw
+
+#### Comments
+
+Demonstrate `BS_OWNERDRAW` button style. The button sends its parent a `WM_DRAWITEM` message whenever it need painting e.g. when pressed, released, when it gains or looses focus and whenever else it needs painting. *lParam* is a pointer to `DRAWITEMSTRUCT`.  This struct contains a Device Context for the button. Any GDI objects selected into the device must be unselected. Also care not to draw outside the rectangle defining boundaries of the button.
+
+### Colors1
+
+#### Comments
+
+Demonstrate 'subclassing' to add functionality to a control's `GWL_WNDPROC`. Store the old value and ensure that it is called in the default case.
+
+Demonstarte methods to color child windows, implement scroll bar controls and adjust static controls. Also shows method to maintain keyboard focus (using subclassing to add 'tab' key functionlaity while passing remainder of keypresses through to default procedure).
 
 ... *work in progress* ...

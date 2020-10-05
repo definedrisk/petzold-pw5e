@@ -496,6 +496,13 @@ BST_CHECKED is defined as 1, which sets the button state to checked.
 BST_UNCHECKED is defined as 0, which sets the button state to cleared.
 BST_INDETERMINATE is defined as 2, which sets the button state to grayed, indicating an indeterminate state. (This is only used for buttons with the BS_3STATE or BS_AUTO3STATE style).
 
+When using Windows `COLOR_` constants within the `wndclass.hbrBackground` member of the WNDCLASS structure it is required to add +1 e.g.
+
+    wndclass.hbrBackground = (HBRUSH) (COLR_BTNFACE + 1) ;
+
+Windows understands that when then value is low it acutally refers to a system color rather than an actaul handle but ...
+>... doing so has no profound purpose other than to prevent the value from being NULL.
+
 ### OwnDraw
 
 #### Comments
@@ -506,8 +513,50 @@ Demonstrate `BS_OWNERDRAW` button style. The button sends its parent a `WM_DRAWI
 
 #### Comments
 
-Demonstrate 'subclassing' to add functionality to a control's `GWL_WNDPROC`. Store the old value and ensure that it is called in the default case.
+Demonstrate 'subclassing' to add functionality to a control's `GWL_WNDPROC`. Store the old value and ensure that it is called in the default case.  From the errata notes 
 
-Demonstarte methods to color child windows, implement scroll bar controls and adjust static controls. Also shows method to maintain keyboard focus (using subclassing to add 'tab' key functionlaity while passing remainder of keypresses through to default procedure).
+Demonstarte methods to color child windows, implement scroll bar controls and adjust static controls. Also shows method to maintain keyboard focus (using the subclassing to add 'tab' key functionality while passing remainder of keypresses through to default procedure).
+
+#### Useful Microsoft Documentation
+
+1. [Windows > Apps > Win32 > API > The Windows Shell > Commctrl.h > SetWindowSubclass function](https://docs.microsoft.com/en-us/windows/win32/api/commctrl/nf-commctrl-setwindowsubclass)
+1. [Homework assignment about window subclassing, Raymond Chen, November 10 2003](https://devblogs.microsoft.com/oldnewthing/20031110-00/?p=41893)
+1. ["Safer subclassing", Raymond Chen, November 11 2003](https://devblogs.microsoft.com/oldnewthing/20031111-00/?p=41883)
+
+### PopPad1
+
+#### Comments
+
+Demonstrate use of Edit Control.
+
+#### Useful Microsoft Documentation
+
+1. [Windows > Apps > Win32 > Desktop Technologies > Desktop App User Interface > Windows Controls > Edit Control](https://docs.microsoft.com/en-us/windows/win32/controls/edit-controls)
+
+### Environ
+
+#### Comments
+
+Demonstrate use of List Box control. Incorporate the fix from errata whereby the pointer to memory is modified and then same pointer is used during call to free; a copy of the ptr should be saved instead.
+
+Added code to resize/move List Box control to utilise minimum of available space in window and required size for contents.
+
+#### Useful Microsoft Documentation
+
+1. [Windows > Apps > Win32 > Desktop Technologies > Desktop App User Interface > Windows Controls > List Box](https://docs.microsoft.com/en-us/windows/win32/controls/list-boxes)
+1. [Windows > Apps > Win32 > API > Processenv.h > GetEnvironmentStrings function](https://docs.microsoft.com/en-us/windows/win32/api/processenv/nf-processenv-getenvironmentstrings)
+
+### Head
+
+#### Comments
+
+Demonstrates `LB_DIR` message. Also gives example of problems that may be faced mixing files with and without `UNICODE` specified. Trialled with UTF8 and UTF16 test files.
+
+#### Useful Microsoft Documentation
+
+1. [Windows > Apps > Win32 > Desktop Technologies > Desktop App User Interface > Windows Controls > LB_DIR message](https://docs.microsoft.com/en-us/windows/win32/controls/lb-dir)
+
+## Chap10 Menus and Other Resources
 
 ... *work in progress* ...
+

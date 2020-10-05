@@ -4,9 +4,11 @@
   ----------------------------------------*/
 
 #include <windows.h>
+#include <commctrl.h>
 
 LRESULT CALLBACK WndProc    (HWND, UINT, WPARAM, LPARAM) ;
-LRESULT CALLBACK ScrollProc (HWND, UINT, WPARAM, LPARAM) ;
+//LRESULT CALLBACK ScrollProc (HWND, UINT, WPARAM, LPARAM) ;
+LRESULT CALLBACK ScrollProc(HWND, UINT, WPARAM, LPARAM, UINT_PTR, DWORD_PTR);
 
 int     idFocus ;
 WNDPROC OldScroll[3] ;
@@ -113,8 +115,9 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
                                              hwnd, (HMENU) (i + 6), 
                                              hInstance, NULL) ;
                
-               OldScroll[i] = (WNDPROC) SetWindowLong (hwndScroll[i], 
-                                             GWL_WNDPROC, (LONG) ScrollProc) ;
+               //OldScroll[i] = (WNDPROC) SetWindowLong (hwndScroll[i], 
+               //                              GWL_WNDPROC, (LONG) ScrollProc) ;
+               SetWindowSubclass(hwndScroll[i], ScrollProc, (UINT_PTR)i, 0);
                
                hBrush[i] = CreateSolidBrush (crPrim[i]) ;
           }
@@ -236,8 +239,11 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
      return DefWindowProc (hwnd, message, wParam, lParam) ;
 }
      
+//LRESULT CALLBACK ScrollProc (HWND hwnd, UINT message, 
+//                             WPARAM wParam, LPARAM lParam)
 LRESULT CALLBACK ScrollProc (HWND hwnd, UINT message, 
-                             WPARAM wParam, LPARAM lParam)
+                             WPARAM wParam, LPARAM lParam,
+  UINT_PTR uIdSubclass, DWORD_PTR dwRefData)
 {
      int id = GetWindowLong (hwnd, GWL_ID) ;
           
@@ -252,6 +258,11 @@ LRESULT CALLBACK ScrollProc (HWND hwnd, UINT message,
      case WM_SETFOCUS :
           idFocus = id ;
           break ;
+
+     case WM_NCDESTROY:
+       RemoveWindowSubclass(hwnd, ScrollProc, id);
+       break;
      }
-     return CallWindowProc (OldScroll[id], hwnd, message, wParam, lParam) ;
+     //return CallWindowProc (OldScroll[id], hwnd, message, wParam, lParam) ;
+     return DefSubclassProc(hwnd, message, wParam, lParam);
 }

@@ -62,7 +62,7 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
      case WM_CREATE :
           hwndEdit = CreateWindow (TEXT ("edit"), NULL,
                          WS_CHILD | WS_VISIBLE | WS_HSCROLL | WS_VSCROLL |
-                                   WS_BORDER | ES_LEFT | ES_MULTILINE |
+                                   /* WS_BORDER |*/ ES_LEFT | ES_MULTILINE |
                                    ES_AUTOHSCROLL | ES_AUTOVSCROLL,
                          0, 0, 0, 0, hwnd, (HMENU) ID_EDIT,
                          ((LPCREATESTRUCT) lParam) -> hInstance, NULL) ;

@@ -10,6 +10,8 @@
 
 LRESULT CALLBACK WndProc (HWND, UINT, WPARAM, LPARAM) ;
 
+int iMaxLength;
+
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
                     PSTR szCmdLine, int iCmdShow)
 {
@@ -56,9 +58,12 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 void FillListBox (HWND hwndList) 
 {
      int     iLength ;
-     TCHAR * pVarBlock, * pVarBeg, * pVarEnd, * pVarName ;
+     TCHAR * pVarBlock, * pVarBeg, * pVarEnd, * pVarName , *pES;
+
+     iMaxLength = 0;
 
      pVarBlock = GetEnvironmentStrings () ;  // Get pointer to environment block
+     pES = pVarBlock;
 
      while (*pVarBlock)
      {
@@ -69,12 +74,18 @@ void FillListBox (HWND hwndList)
                pVarEnd = pVarBlock - 1 ;          // Points to '=' sign
                iLength = pVarEnd - pVarBeg ;      // Length of variable name
 
+               // Update MaxLength
+               iMaxLength = iLength > iMaxLength ? iLength : iMaxLength;
+
                     // Allocate memory for the variable name and terminating
                     // zero. Copy the variable name and append a zero.
 
                pVarName = calloc (iLength + 1, sizeof (TCHAR)) ;
-               CopyMemory (pVarName, pVarBeg, iLength * sizeof (TCHAR)) ;
-               pVarName[iLength] = '\0' ;
+               if (pVarName)
+               {
+                 CopyMemory(pVarName, pVarBeg, iLength * sizeof(TCHAR));
+                 pVarName[iLength] = '\0';
+               }
 
                     // Put the variable name in the list box and free memory.
 
@@ -83,14 +94,18 @@ void FillListBox (HWND hwndList)
           }
           while (*pVarBlock++ != '\0') ;     // Scan until terminating zero
      }
-     FreeEnvironmentStrings (pVarBlock) ;
+     //FreeEnvironmentStrings (pVarBlock) ;
+     FreeEnvironmentStrings(pES);
 }
 
 LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
      static HWND  hwndList, hwndText ;
-     int          iIndex, iLength, cxChar, cyChar ;
+     static int cxChar, cyChar, cxClient, cyClient ;
+     int          iIndex, iLength, iMaxWidth, iMaxHeight ;
      TCHAR      * pVarName, * pVarValue ;
+     HDC hdc;
+     TEXTMETRIC tm;
 
      switch (message)
      {
@@ -101,12 +116,12 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
                // Create listbox and static text windows.
           
           hwndList = CreateWindow (TEXT ("listbox"), NULL,
-                              WS_CHILD | WS_VISIBLE | LBS_STANDARD,
+                              WS_CHILD | WS_VISIBLE | LBS_STANDARD | WS_HSCROLL,
                               cxChar, cyChar * 3,
                               cxChar * 16 + GetSystemMetrics (SM_CXVSCROLL),
                               cyChar * 5,
                               hwnd, (HMENU) ID_LIST,
-                              (HINSTANCE) GetWindowLong (hwnd, GWL_HINSTANCE),
+                              (HINSTANCE) GetWindowLongPtr (hwnd, GWL_HINSTANCE),
                               NULL) ;
           
           hwndText = CreateWindow (TEXT ("static"), NULL,
@@ -114,11 +129,35 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
                               cxChar, cyChar, 
                               GetSystemMetrics (SM_CXSCREEN), cyChar,
                               hwnd, (HMENU) ID_TEXT,
-                              (HINSTANCE) GetWindowLong (hwnd, GWL_HINSTANCE),
+                              (HINSTANCE) GetWindowLongPtr (hwnd, GWL_HINSTANCE),
                               NULL) ;
 
           FillListBox (hwndList) ;
+
+          // Define horiztonal alignment of listbox
+          SendMessage(hwndList, LB_SETHORIZONTALEXTENT,
+            cxChar * (iMaxLength + 1) + GetSystemMetrics(SM_CXVSCROLL), 0);
+
           return 0 ;
+
+     case WM_SIZE:
+         // Resize listbox to accomodate MaxLength and MaxHeight requirements
+         cxClient = LOWORD(lParam);
+         cyClient = HIWORD(lParam);
+
+         hdc = GetDC(hwnd);
+         GetTextMetrics(hdc, &tm);
+
+         iMaxWidth = min(cxClient - 2 * cxChar,
+           cxChar * 1.5 * iMaxLength + GetSystemMetrics(SM_CXVSCROLL));
+
+         iMaxHeight = min(cyClient - cyChar * 4,
+           (SendMessage(hwndList, LB_GETCOUNT, 0, 0) + 1) * (cyChar + tm.tmExternalLeading));
+
+         MoveWindow(hwndList, cxChar, cyChar * 3, iMaxWidth, iMaxHeight, TRUE);
+         ReleaseDC(hwnd, hdc);
+
+         break;
           
      case WM_SETFOCUS :
           SetFocus (hwndList) ;

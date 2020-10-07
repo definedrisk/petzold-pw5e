@@ -278,6 +278,7 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
           return 0 ;
           
      case WM_DESTROY:
+          if (pBuffer != NULL) free(pBuffer);
           PostQuitMessage (0) ;
           return 0 ;
      }

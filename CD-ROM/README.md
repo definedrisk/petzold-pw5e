@@ -515,7 +515,7 @@ Demonstrate `BS_OWNERDRAW` button style. The button sends its parent a `WM_DRAWI
 
 Demonstrate 'subclassing' to add functionality to a control's `GWL_WNDPROC`. Store the old value and ensure that it is called in the default case.  From the errata notes 
 
-Demonstarte methods to color child windows, implement scroll bar controls and adjust static controls. Also shows method to maintain keyboard focus (using the subclassing to add 'tab' key functionality while passing remainder of keypresses through to default procedure).
+Demonstrate methods to color child windows, implement scroll bar controls and adjust static controls. Also shows method to maintain keyboard focus (using the subclassing to add 'tab' key functionality while passing remainder of keypresses through to default procedure).
 
 #### Useful Microsoft Documentation
 
@@ -557,6 +557,8 @@ Demonstrates `LB_DIR` message. Also gives example of problems that may be faced 
 1. [Windows > Apps > Win32 > Desktop Technologies > Desktop App User Interface > Windows Controls > LB_DIR message](https://docs.microsoft.com/en-us/windows/win32/controls/lb-dir)
 
 ## Chap10 Menus and Other Resources
+
+
 
 ... *work in progress* ...
 

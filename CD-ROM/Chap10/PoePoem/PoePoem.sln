@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30517.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PoePoem", "PoePoem.vcxproj", "{709E1DE0-DC50-4808-8CF7-111016E697AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{709E1DE0-DC50-4808-8CF7-111016E697AF}.Debug|x86.ActiveCfg = Debug|Win32
+		{709E1DE0-DC50-4808-8CF7-111016E697AF}.Debug|x86.Build.0 = Debug|Win32
+		{709E1DE0-DC50-4808-8CF7-111016E697AF}.Release|x86.ActiveCfg = Release|Win32
+		{709E1DE0-DC50-4808-8CF7-111016E697AF}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C37131F3-BC9C-448A-BA8C-C675956F759A}
+	EndGlobalSection
+EndGlobal

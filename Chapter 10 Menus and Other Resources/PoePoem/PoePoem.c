@@ -43,6 +43,8 @@ int WINAPI _tWinMain(
 	wndclass.lpszMenuName = NULL;
 	wndclass.lpszClassName = szAppName;
 
+	hInst = hInstance;
+
 	if (!RegisterClass(&wndclass))
 	{
 		LoadStringA(hInstance, IDS_APPNAME, (char*)szAppName, sizeof(szAppName));
@@ -73,6 +75,8 @@ int WINAPI _tWinMain(
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	static char* pText;
+	static char* pRsc, * pWorking;
+	static DWORD fileSize = 0;
 	static HGLOBAL hResource;
 	static HWND    hScroll;
 	static int     iPosition, cxChar, cyChar, cyClient, iNumLines, xScroll;
@@ -97,20 +101,30 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 			0, 0, 0, 0,
 			hwnd, (HMENU)1, hInst, NULL);
 
-		hResource = LoadResource(
-			hInst,
-			FindResource(hInst, TEXT("AnnabelLee"), TEXT("TEXT")));
+		HRSRC rc = FindResource(hInst, TEXT("ANNABELLEE"), TEXT("TEXT"));
+		if (rc)
+		{
+			hResource = LoadResource(hInst, rc);
+			fileSize = SizeofResource(hInst, rc);
+			if (hResource) pText = LockResource(hResource);
+		}
 
-		pText = (char*)LockResource(hResource);
+		pRsc = malloc(sizeof(TCHAR) * fileSize);
+		if (pRsc) memcpy(pRsc, pText, fileSize);
+		pWorking = pRsc;
+
 		iNumLines = 0;
 
-		while (*pText != '\\' && *pText != '\0')
+		if (pWorking)
 		{
-			if (*pText == '\n')
-				iNumLines++;
-			pText = AnsiNext(pText);
+			while (*pWorking != '\\' && *pWorking != '\0')
+			{
+				if (*pWorking == '\n')
+					iNumLines++;
+				pWorking = AnsiNext(pWorking);
+			}
+			*pWorking = '\0';
 		}
-		*pText = '\0';
 
 		SetScrollRange(hScroll, SB_CTL, 0, iNumLines, FALSE);
 		SetScrollPos(hScroll, SB_CTL, 0, FALSE);
@@ -163,18 +177,19 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_PAINT:
 		hdc = BeginPaint(hwnd, &ps);
 
-		pText = (char*)LockResource(hResource);
+		//pText = (char*)LockResource(hResource);
 
 		GetClientRect(hwnd, &rect);
 		rect.left += cxChar;
 		rect.top += cyChar * (1 - iPosition);
-		DrawTextA(hdc, pText, -1, &rect, DT_EXTERNALLEADING);
+		DrawTextA(hdc, pRsc, -1, &rect, DT_EXTERNALLEADING);
 
 		EndPaint(hwnd, &ps);
 		return 0;
 
 	case WM_DESTROY:
 		FreeResource(hResource);
+		free(pRsc);
 		PostQuitMessage(0);
 		return 0;
 	}

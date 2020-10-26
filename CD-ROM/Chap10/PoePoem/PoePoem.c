@@ -38,6 +38,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
      wndclass.hbrBackground = (HBRUSH) GetStockObject (WHITE_BRUSH) ;
      wndclass.lpszMenuName  = NULL ;
      wndclass.lpszClassName = szAppName ;
+
+     hInst = hInstance;
      
      if (!RegisterClass (&wndclass))
      {
@@ -71,7 +73,8 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-     static char  * pText, * pBuffer, * pBufferStart ;
+     static char * pText;
+     static char * pRsc, * pWorking;
      static DWORD   fileSize = 0;
      static HGLOBAL hResource ;
      static HWND    hScroll ;
@@ -97,49 +100,29 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
                                   0, 0, 0, 0,
                                   hwnd, (HMENU) 1, hInst, NULL) ;
           
-          //HMODULE handle = GetModuleHandle(NULL);
-          //HRSRC rc = FindResource(handle, TEXT("ANNABELLEE"), TEXT("TEXT"));
-          
           HRSRC rc = FindResource(hInst, TEXT("ANNABELLEE"), TEXT("TEXT"));
           if (rc)
           {
-            HGLOBAL rcData = LoadResource(hInst, rc);
+            hResource = LoadResource(hInst, rc);
             fileSize = SizeofResource(hInst, rc);
-            if (rcData) pText = LockResource(rcData);
+            if (hResource) pText = LockResource(hResource);
           }
           
-          pBufferStart = malloc(sizeof(TCHAR) * fileSize);
-          if (pBufferStart != NULL)
-          {
-            memcpy(pBufferStart, pText, fileSize);
-          }
-          pBuffer = pBufferStart;
-
-          //hResource = LoadResource (hInst, 
-          //            FindResource (hInst, TEXT ("ANNABELLEE"),
-          //                                 TEXT ("TEXT"))) ;
+          pRsc = malloc(sizeof(TCHAR) * fileSize);
+          if (pRsc) memcpy(pRsc, pText, fileSize);
+          pWorking = pRsc;
           
-          //pText = (char *) LockResource (hResource) ;
           iNumLines = 0 ;
           
-          //while (*pText != '\\' && *pText != '\0')
-          //{
-          //     if (*pText == '\n')
-          //          iNumLines ++ ;
-          //     pText = AnsiNext (pText) ;
-          //}
-
-          //*pText = _T('\0') ;
-
-          if (pBuffer)
+          if (pWorking)
           {
-            while (*pBuffer != '\\' && *pBuffer != '\0')
+            while (*pWorking != '\\' && *pWorking != '\0')
             {
-              if (*pBuffer == '\n')
+              if (*pWorking == '\n')
                 iNumLines++;
-              pBuffer = AnsiNext(pBuffer);
+              pWorking = AnsiNext(pWorking);
             }
-            *pBuffer = _T('\0');
+            *pWorking = '\0';
           }
 
           SetScrollRange (hScroll, SB_CTL, 0, iNumLines, FALSE) ;
@@ -198,14 +181,14 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
           GetClientRect (hwnd, &rect) ;
           rect.left += cxChar ;
           rect.top  += cyChar * (1 - iPosition) ;
-          DrawTextA (hdc, pBufferStart, -1, &rect, DT_EXTERNALLEADING) ;
+          DrawTextA (hdc, pRsc, -1, &rect, DT_EXTERNALLEADING) ;
 
           EndPaint (hwnd, &ps) ;
           return 0 ;
                
      case WM_DESTROY :
           FreeResource (hResource) ;
-          free(pBufferStart);
+          free(pRsc);
           PostQuitMessage (0) ;
           return 0 ;
      }

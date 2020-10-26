@@ -206,7 +206,7 @@ LRESULT CALLBACK ListProc (HWND hwnd, UINT message,
 {
      if (message == WM_KEYDOWN && wParam == VK_RETURN)
           SendMessage (GetParent (hwnd), WM_COMMAND, 
-                       MAKELONG (1, LBN_DBLCLK), (LPARAM) hwnd) ;
+                       MAKELONG (ID_LIST, LBN_DBLCLK), (LPARAM) hwnd) ;
           
      return CallWindowProc (OldList, hwnd, message, wParam, lParam) ;
 }

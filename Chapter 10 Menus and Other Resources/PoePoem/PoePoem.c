@@ -42,9 +42,9 @@ int WINAPI _tWinMain(
 	wndclass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
 	wndclass.lpszMenuName = NULL;
 	wndclass.lpszClassName = szAppName;
-
+	
 	hInst = hInstance;
-
+	
 	if (!RegisterClass(&wndclass))
 	{
 		LoadStringA(hInstance, IDS_APPNAME, (char*)szAppName, sizeof(szAppName));
@@ -75,7 +75,7 @@ int WINAPI _tWinMain(
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	static char* pText;
-	static char* pRsc, * pWorking;
+        static char* pRsc, * pWorking;
 	static DWORD fileSize = 0;
 	static HGLOBAL hResource;
 	static HWND    hScroll;
@@ -107,12 +107,16 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 			hResource = LoadResource(hInst, rc);
 			fileSize = SizeofResource(hInst, rc);
 			if (hResource) pText = LockResource(hResource);
-		}
-
+		}	
 		pRsc = malloc(sizeof(TCHAR) * fileSize);
 		if (pRsc) memcpy(pRsc, pText, fileSize);
 		pWorking = pRsc;
+			
+		/*hResource = LoadResource(
+			hInst,
+			FindResource(hInst, TEXT("AnnabelLee"), TEXT("TEXT")));*/
 
+		//pText = (char*)LockResource(hResource);
 		iNumLines = 0;
 
 		if (pWorking)
@@ -124,7 +128,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
 				pWorking = AnsiNext(pWorking);
 			}
 			*pWorking = '\0';
-		}
+		
 
 		SetScrollRange(hScroll, SB_CTL, 0, iNumLines, FALSE);
 		SetScrollPos(hScroll, SB_CTL, 0, FALSE);

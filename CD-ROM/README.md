@@ -575,9 +575,9 @@ Cannot directly modify text in resource by retrieved pointer, instead see this [
 
 The implementation is changed quite substanitally based on the Stack Overflow article.
 
-### MenuDemo and PopMenu
+### MenuDemo, PopMenu and NoPopups
 
-Demonstrate basic menu creation and use. Popup menu can be obtained from a submenu.
+Demonstrate basic menu creation and use including controlling the system menu. Popup menu can be obtained from a submenu.
 
 [Stack Overflow: How to use main menu handle in TrackPopupMenu()](https://stackoverflow.com/questions/20926773/how-to-use-main-menu-handle-in-trackpopupmenu)
 
@@ -585,5 +585,8 @@ Demonstrate basic menu creation and use. Popup menu can be obtained from a subme
 
 [Windows > Apps > Win32 > API > Menus and Other Resources > Winuser.h > TrackPopupMenu function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-trackpopupmenu)
 
-... *work in progress* ...
+### PopPad2
 
+
+
+... *work in progress* ...

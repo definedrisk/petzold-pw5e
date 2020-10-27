@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30517.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NoPopups", "NoPopups.vcxproj", "{5D46AD39-3F53-4E4B-B36E-C9EEB1470A25}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5D46AD39-3F53-4E4B-B36E-C9EEB1470A25}.Debug|x86.ActiveCfg = Debug|Win32
+		{5D46AD39-3F53-4E4B-B36E-C9EEB1470A25}.Debug|x86.Build.0 = Debug|Win32
+		{5D46AD39-3F53-4E4B-B36E-C9EEB1470A25}.Release|x86.ActiveCfg = Release|Win32
+		{5D46AD39-3F53-4E4B-B36E-C9EEB1470A25}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {15BDD0C7-702D-4A03-845E-5CBED1F40F72}
+	EndGlobalSection
+EndGlobal

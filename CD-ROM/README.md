@@ -565,6 +565,10 @@ Demonstrates `LB_DIR` message. Also gives example of problems that may be faced 
 1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
 1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
 
+### IconDemo
+
+Added an extra icon resource to confirm Visual Studio 2019 functionality.
+
 ### PoePoem
 
 Cannot directly modify text in resource by retrieved pointer, instead see this [Stack Overflow question: Embed Text File in a Resource in a native Windows Application](https://stackoverflow.com/questions/2933295/embed-text-file-in-a-resource-in-a-native-windows-application)

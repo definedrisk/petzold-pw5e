@@ -1,4 +1,6 @@
-# Example Workspaces for each chapter from CD-ROM updated to VS2019 Solutions
+# Section 1: The Basics
+
+Example Workspaces for each chapter copied from the CD-ROM and updated to compile and run as VS2019 Solutions.
 
 ## Summary
 
@@ -600,4 +602,10 @@ Demonstrate use of Keyboard Accelerators. Bug fix as described by erratum 2.
 1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
 1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
 
-... *work in progress* ...
+## Chap11 Dialog Boxes
+
+ \TODO
+
+## Chap12 The Clipboard
+
+ \TODO

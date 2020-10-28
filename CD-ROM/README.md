@@ -577,16 +577,27 @@ The implementation is changed quite substanitally based on the Stack Overflow ar
 
 ### MenuDemo, PopMenu and NoPopups
 
-Demonstrate basic menu creation and use including controlling the system menu. Popup menu can be obtained from a submenu.
+Demonstrate basic menu creation and use including controlling the system menu. Popup menu can be obtained from a submenu. Introduced `GET_X_LPARAM` and `GET_Y_LPARAM` in place of `LOWORD` and `HIWORD`
 
 [Stack Overflow: How to use main menu handle in TrackPopupMenu()](https://stackoverflow.com/questions/20926773/how-to-use-main-menu-handle-in-trackpopupmenu)
 
 #### Useful Microsoft Documentation
 
-[Windows > Apps > Win32 > API > Menus and Other Resources > Winuser.h > TrackPopupMenu function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-trackpopupmenu)
+1. [Windows > Apps > Win32 > API > Menus and Other Resources > Winuser.h > TrackPopupMenu function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-trackpopupmenu)
+1. [Windows > Apps > Win32 > Desktop Technologies > Desktop App User Interface > Menus and Other Resources > WM_CONTEXTMENU message](https://docs.microsoft.com/en-us/windows/win32/menurc/wm-contextmenu)
+1. [Windows > Apps > Win32 > API > Windows and Messages > Windowsx.h > GET_X_LPARAM macro](https://docs.microsoft.com/en-us/windows/win32/api/windowsx/nf-windowsx-get_x_lparam)
 
 ### PopPad2
 
+Demonstrate use of Keyboard Accelerators. Bug fix as described by erratum 2. 
 
+## Chap11 Dialog Boxes
+
+### For each project
+
+#### Changes
+
+1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
+1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
 
 ... *work in progress* ...

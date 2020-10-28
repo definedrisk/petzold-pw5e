@@ -140,7 +140,7 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
           return 0 ;
           
      case WM_VSCROLL :
-          switch (wParam)
+          switch (LOWORD(wParam))
           {
           case SB_TOP :
                iPosition = 0 ;
@@ -161,7 +161,7 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
                iPosition += cyClient / cyChar ;
                break ;
           case SB_THUMBPOSITION :
-               iPosition = LOWORD (lParam) ;
+               iPosition = HIWORD (wParam) ;
                break ;
           }
           iPosition = max (0, min (iPosition, iNumLines)) ;

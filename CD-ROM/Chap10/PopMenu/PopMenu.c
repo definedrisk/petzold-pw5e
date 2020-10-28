@@ -4,6 +4,7 @@
   ----------------------------------------*/
 
 #include <windows.h>
+#include <windowsx.h>
 #include "resource.h"
 
 LRESULT CALLBACK WndProc (HWND, UINT, WPARAM, LPARAM) ;
@@ -71,10 +72,19 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
           hMenu = GetSubMenu (hMenu, 0) ;
           return 0 ;
 
-     case WM_RBUTTONUP:
-          point.x = LOWORD (lParam) ;
-          point.y = HIWORD (lParam) ;
-          ClientToScreen (hwnd, &point) ;
+     //case WM_RBUTTONUP:
+     //     point.x = LOWORD(lParam);
+     //     point.y = HIWORD(lParam);
+     case WM_CONTEXTMENU:
+           point.x = GET_X_LPARAM(lParam);
+           point.y = GET_Y_LPARAM(lParam);
+           if ((point.x == -1) && (point.y == -1))
+           {
+             point.x = 0;
+             point.y = 0;
+             ClientToScreen(hwnd, &point);
+           }
+          //ClientToScreen (hwnd, &point) ;
           
           TrackPopupMenu (hMenu, TPM_RIGHTBUTTON, point.x, point.y, 
                           0, hwnd, NULL) ;
@@ -130,6 +140,7 @@ LRESULT CALLBACK WndProc (HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam)
           break ;
           
      case WM_DESTROY:
+          DestroyMenu(hMenu);
           PostQuitMessage (0) ;
           return 0 ;
      }

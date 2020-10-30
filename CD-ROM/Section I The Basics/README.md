@@ -1,4 +1,4 @@
-# Section 1: The Basics
+# Section I: The Basics
 
 Example Workspaces for each chapter copied from the CD-ROM and updated to compile and run as VS2019 Solutions.
 
@@ -500,7 +500,7 @@ BST_INDETERMINATE is defined as 2, which sets the button state to grayed, indica
 
 When using Windows `COLOR_` constants within the `wndclass.hbrBackground` member of the WNDCLASS structure it is required to add +1 e.g.
 
-    wndclass.hbrBackground = (HBRUSH) (COLR_BTNFACE + 1) ;
+    wndclass.hbrBackground = (HBRUSH) (COLOR_BTNFACE + 1) ;
 
 Windows understands that when then value is low it acutally refers to a system color rather than an actaul handle but ...
 >... doing so has no profound purpose other than to prevent the value from being NULL.
@@ -602,10 +602,15 @@ Demonstrate use of Keyboard Accelerators. Bug fix as described by erratum 2.
 1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
 1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
 
-## Chap11 Dialog Boxes
-
  \TODO
 
 ## Chap12 The Clipboard
+
+### For each project
+
+#### Changes
+
+1. *Project Properties -> C/C++ -> Code Generation -> Enable Minimal Rebuild = No (/Gm-)*
+1. *Project Properties -> C/C++ -> General -> Debug Information Format = Program Database (/Zi)*
 
  \TODO

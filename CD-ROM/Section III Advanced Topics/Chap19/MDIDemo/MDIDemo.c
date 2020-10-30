@@ -447,10 +447,10 @@ LRESULT CALLBACK RectWndProc (HWND hwnd, UINT message,
           
           pRectData = (PRECTDATA) GetWindowLong (hwnd, 0) ;
           
-          xLeft   = rand () % pRectData->cxClient ;
-          xRight  = rand () % pRectData->cxClient ;
-          yTop    = rand () % pRectData->cyClient ;
-          yBottom = rand () % pRectData->cyClient ;
+          xLeft   = rand () % (pRectData->cxClient + 1); //errata Chap19 #3
+          xRight  = rand () % (pRectData->cxClient + 1); //errata Chap19 #3
+          yTop    = rand () % (pRectData->cyClient + 1); //errata Chap19 #3
+          yBottom = rand () % (pRectData->cyClient + 1); //errata Chap19 #3
           nRed    = rand () & 255 ;
           nGreen  = rand () & 255 ;
           nBlue   = rand () & 255 ;

@@ -1,4 +1,4 @@
-//Microsoft Developer Studio generated resource script.
+// Microsoft Visual C++ generated resource script.
 //
 #include "resource.h"
 
@@ -13,13 +13,11 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// English (United States) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 #pragma code_page(1252)
-#endif //_WIN32
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -27,18 +25,18 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE DISCARDABLE 
+1 TEXTINCLUDE 
 BEGIN
     "resource.h\0"
 END
 
-2 TEXTINCLUDE DISCARDABLE 
+2 TEXTINCLUDE 
 BEGIN
     "#include ""afxres.h""\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE DISCARDABLE 
+3 TEXTINCLUDE 
 BEGIN
     "\r\n"
     "\0"
@@ -52,7 +50,7 @@ END
 // Menu
 //
 
-MDIMENUINIT MENU DISCARDABLE 
+MDIMENUINIT MENU
 BEGIN
     POPUP "&File"
     BEGIN
@@ -63,7 +61,7 @@ BEGIN
     END
 END
 
-MDIMENUHELLO MENU DISCARDABLE 
+MDIMENUHELLO MENU
 BEGIN
     POPUP "&File"
     BEGIN
@@ -90,7 +88,7 @@ BEGIN
     END
 END
 
-MDIMENURECT MENU DISCARDABLE 
+MDIMENURECT MENU
 BEGIN
     POPUP "&File"
     BEGIN
@@ -115,13 +113,13 @@ END
 // Accelerator
 //
 
-MDIDEMO ACCELERATORS DISCARDABLE 
+MDIDEMO ACCELERATORS
 BEGIN
     VK_F4,          IDM_WINDOW_TILE,        VIRTKEY, SHIFT, NOINVERT
     VK_F5,          IDM_WINDOW_CASCADE,     VIRTKEY, SHIFT, NOINVERT
 END
 
-#endif    // English (U.S.) resources
+#endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

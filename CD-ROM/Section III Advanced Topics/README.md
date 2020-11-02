@@ -14,3 +14,11 @@ Example Workspaces for each chapter copied from the CD-ROM and updated to compil
 #### Useful Microsoft Documentation
 
 1. [Windows > Apps > Win32 > API > Windows and Messages > Winuser.h > DefMDIChildProcA function](https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-defmdichildproca)
+
+## Chap21 Dynamic-Link Libraries
+
+### EDRTest
+
+The source and header files have instead been added to a new project and solution within the [Visual Studio 2019 solutions](../../VS2019%20New%20Projects/README.md) folder.
+
+

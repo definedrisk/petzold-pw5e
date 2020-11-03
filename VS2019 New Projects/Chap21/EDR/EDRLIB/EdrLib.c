@@ -6,6 +6,7 @@
 #include <windows.h>
 #include "edrlib.h"
 
+//VS2019 template supplies entry-point function
 //int WINAPI DllMain (HINSTANCE hInstance, DWORD fdwReason, PVOID pvReserved)
 //{
 //     return TRUE ;

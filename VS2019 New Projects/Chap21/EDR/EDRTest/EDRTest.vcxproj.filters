@@ -24,17 +24,17 @@
     <ClInclude Include="Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EDRTEST.h">
+    <ClInclude Include="EDRTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EDRTEST.cpp">
+    <ClCompile Include="EDRTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="EDRTEST.rc">
+    <ResourceCompile Include="EDRTest.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
@@ -42,7 +42,7 @@
     <Image Include="small.ico">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="EDRTEST.ico">
+    <Image Include="EDRTest.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

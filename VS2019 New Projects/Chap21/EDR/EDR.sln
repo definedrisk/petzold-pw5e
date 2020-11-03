@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30517.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EDRLIB", "EDRLIB\EDRLIB.vcxproj", "{D87FC466-3C6F-4777-9A03-94BFD646C4BD}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "EDRTest", "EDRTest\EDRTest.vcxproj", "{2B910407-A5CD-4373-B1EF-BD828010DAF5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D87FC466-3C6F-4777-9A03-94BFD646C4BD} = {D87FC466-3C6F-4777-9A03-94BFD646C4BD}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D87FC466-3C6F-4777-9A03-94BFD646C4BD}.Debug|x86.ActiveCfg = Debug|Win32
+		{D87FC466-3C6F-4777-9A03-94BFD646C4BD}.Debug|x86.Build.0 = Debug|Win32
+		{D87FC466-3C6F-4777-9A03-94BFD646C4BD}.Release|x86.ActiveCfg = Release|Win32
+		{D87FC466-3C6F-4777-9A03-94BFD646C4BD}.Release|x86.Build.0 = Release|Win32
+		{2B910407-A5CD-4373-B1EF-BD828010DAF5}.Debug|x86.ActiveCfg = Debug|Win32
+		{2B910407-A5CD-4373-B1EF-BD828010DAF5}.Debug|x86.Build.0 = Debug|Win32
+		{2B910407-A5CD-4373-B1EF-BD828010DAF5}.Release|x86.ActiveCfg = Release|Win32
+		{2B910407-A5CD-4373-B1EF-BD828010DAF5}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {313CB0B0-D7AB-4562-93EE-DBC87BF7CFF7}
+	EndGlobalSection
+EndGlobal

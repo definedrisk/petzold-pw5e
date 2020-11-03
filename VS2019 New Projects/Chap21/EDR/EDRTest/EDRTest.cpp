@@ -1,8 +1,9 @@
-// EDRTEST.cpp : Defines the entry point for the application.
+// EDRTest.cpp : Defines the entry point for the application.
 //
 
 #include "framework.h"
-#include "EDRTEST.h"
+#include "EDRTest.h"
+#include "EdrLib.h"
 
 #define MAX_LOADSTRING 100
 
@@ -123,7 +124,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-  RECT rect;
+    RECT rect;
 
     switch (message)
     {
@@ -151,7 +152,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             // TODO: Add any drawing code that uses hdc here...
 
             GetClientRect(hWnd, &rect);
-            EdrCenterText(hdc, &rect, TEXT("This string was displayed by a DLL"));
+            EdrCenterText(hdc, &rect,
+              TEXT("This string was displayed by a DLL"));
 
             EndPaint(hWnd, &ps);
         }
